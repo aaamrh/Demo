@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    li{
+      list-style: none;
+      width: 100px;
+      height: 30px;
+      background: yellow;
+      margin: 10px;   
+    }
+    #div1{
+      width: 200px;
+      height: 200px;
+      background: red;
+      margin: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id='div1'>将文件拖拽到此区域</div>
+  <ul id='ul1'> </ul>
+
+  <script>
+    window.onload = function(){
+      var oDiv  = document.getElementById('div1');
+      var oUl  = document.getElementById('ul1');
+      
+      oDiv.ondragenter = function(ev){
+        this.innerHTML = '释放上传';
+      }
+      oDiv.ondragleave = function(){
+        this.innerHTML = '将文件拖拽到此区域';
+      }
+      oDiv.ondragover = function(ev){
+        ev.preventDefault()
+      }
+      oDiv.ondrop = function(ev){
+        this.style.background = 'pink'
+        ev.preventDefault();
+        var fs = ev.dataTransfer.files;
+        
+        if (fs[0].type.indexOf('image') == -1){
+          alert('必须上传图片')
+          return;
+        }
+        var fd = new FileReader();
+        fd.readAsDataURL(fs[0]);
+        fd.onload = function(){
+          console.log(this.result)
+          var oLi = document.createElement('li');
+          var oImg = document.createElement('img');
+          oImg.src = this.result;
+          oLi.appendChild(oImg);
+          oUl.appendChild(oLi)
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #div1{
+      width: 512px;
+      height: 327px;
+      overflow: hidden;
+      position: fixed;
+    } 
+    
+    #div1 img{
+      /* width: 100%;
+      height: 100%; */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 512px;
+      height: 327px;
+    }
+    #div1 span{
+      width: 80px;
+      height: 80px;
+      background: green;
+      opacity: .5;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: none;
+    }
+
+    #mark{
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: red;
+      opacity: .3;
+    }
+
+    #div2{
+      position: absolute;
+      left: 800px;
+      top: 200px;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    #div2 img{
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="div1">
+    <img src="./a.jpg" alt="">
+    <span></span>
+    <div id="mark"></div>
+  </div> 
+  <div id="div2">
+    <img src="./a.jpg " alt="">
+  </div>
+
+  
+  <script>
+    window.onload = function(){
+      var oDiv = document.getElementById('div1');
+      var oSpan = document.getElementsByTagName('span')[0];
+      var oMark = document.getElementById('mark');
+
+      var oDiv2 = document.getElementById('div2');
+      var img2 = oDiv2.getElementsByTagName('img')[0];
+
+      oDiv.onmouseover = function(){
+        oSpan.style.display = 'block';
+      }
+      oDiv.onmouseout = function(){
+        oSpan.style.display = 'none';
+      }
+
+      oDiv.onmousemove = function(ev){
+        var ev = ev || window.event;
+        var target = ev.target;
+
+        var L = ev.clientX - oDiv.offsetLeft - oSpan.offsetWidth/2;
+        var T = ev.clientY - oDiv.offsetTop - oSpan.offsetHeight/2;
+
+        if(L<0){
+          L = 0
+        }
+        if(L>oDiv.offsetWidth-oSpan.offsetWidth){
+          L = oDiv.offsetWidth-oSpan.offsetWidth
+        }
+        
+        if(T<0){
+          T = 0
+        }
+
+        if(T>oDiv.offsetHeight-oSpan.offsetHeight){
+          T = oDiv.offsetHeight-oSpan.offsetHeight
+        }
+
+        var scaleX = L/(oDiv.offsetWidth-oSpan.offsetWidth);
+        var scaleY = T/(oDiv.offsetHeight-oSpan.offsetHeight);
+        
+        oSpan.style.left = L + 'px';
+        oSpan.style.top = T + 'px';
+
+        img2.style.left = - scaleX * (img2.offsetWidth-oDiv2.offsetWidth) + 'px';
+        img2.style.top = - scaleY * (img2.offsetHeight-oDiv2.offsetHeight) + 'px';
+      }
+
+    }
+  </script>
+</body>
+</html>

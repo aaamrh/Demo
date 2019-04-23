@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    li{
+      list-style: none;
+      width: 100px;
+      height: 30px;
+      background: yellow;
+      margin: 10px;   
+    }
+    #div1{
+      width: 200px;
+      height: 200px;
+      background: red;
+      margin: 200px;
+    }
+    p{
+      background: orange;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <!-- 只设置draggable火狐不可用  -->
+    <li draggable="true">11111111</li>  
+    <li draggable="true">2222222</li>
+    <li draggable="true">33333333</li>
+  </ul>
+  <div id='div1'>
+  </div>
+
+  <script>
+    window.onload = function(){
+      var oUl = document.getElementsByTagName('ul')[0];
+      var aLi = document.getElementsByTagName('li');
+      var oDiv  = document.getElementById('div1');
+      var i = 0;
+
+      for(var i = 0; i<aLi.length; i++){
+        aLi[i].ondragstart = function(ev){
+          var ev = ev || window.event;
+
+          //  FF必须设置
+          ev.dataTransfer.setData("name", 'hello')
+
+          ev.dataTransfer.effectAllowed = 'link';
+          ev.dataTransfer.setDragImage(oDiv,0,0)
+
+        }
+        // aLi[i].ondrag = function(){
+        //   document.title = i++;
+        //   // 于mousemove的区别，不移动也会触发
+        // }
+
+        aLi[i].ondragend = function(){
+          this.style.background = 'yellow'
+        }
+      }
+
+
+      oDiv.ondragenter = function(){
+        this.style.background = '#ccc'
+      }
+      oDiv.ondragleave = function(){
+        this.style.background = 'red'
+      }
+      oDiv.ondragover = function(){
+        // document.title = i++;
+        return false;
+      }
+      oDiv.ondrop = function(ev){
+        this.style.background = 'pink'
+        // document.title = ev.dataTransfer.getData('name');
+        oUl.removeChild( aLi[ev.dataTransfer.getData('name')] ); 
+
+        for(var i = 0; i<aLi.length; i++){
+          aLi[i].index = i;
+        }
+      }
+
+    }
+  </script>
+</body>
+</html>
