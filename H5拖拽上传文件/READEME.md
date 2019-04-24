@@ -5,7 +5,7 @@
 * `2.html`              兼容火狐
 * `3 datatransfer.html` 设置拖动时鼠标状态，和图片
 * `4 files.html`        将物体拖动到目标区域,显示到下方
-* [拖拽上传图片并保存到后台(Flask)](https://segmentfault.com/blog/marh) 详细讲解
+* [拖拽上传图片并保存到后台(Flask)](https://segmentfault.com/a/1190000018959654?_ea=10170446) 详细讲解
 
 
 - [x] `draggable` 设置为true, 元素就可以拖拽了
