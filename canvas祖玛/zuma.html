@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas祖玛</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    body{
+      background: #000;
+    }
+    #div1{
+       background: white;
+       width: 600px;
+       margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div id='div1'>
+    <canvas id='c1' width="600" height="600"></canvas>
+  </div>
+
+  <script>
+    var oC = document.getElementById('c1');
+    var oGC = oC.getContext('2d');
+    var oDiv1 = document.getElementById('div1');
+
+    var i = 0;
+
+  
+
+    var yImg = new Image();
+    yImg.src = './gua.png';
+    yImg.onload = function(){
+      // 60帧， 1s执行60次  绘制 canvas
+      setInterval(function(){
+        oGC.clearRect(0, 0, oC.width, oC.height)
+        oGC.beginPath()
+        oGC.arc (300, 200, 200, -90*Math.PI/180, 180*Math.PI/180)
+        oGC.stroke()
+
+        oGC.beginPath()
+        oGC.arc (250, 200, 150, -180*Math.PI/180, 0)
+        oGC.stroke()
+
+        oGC.beginPath()
+        oGC.arc (400, 200, 20, 0*Math.PI/180, 360*Math.PI/180)
+        oGC.stroke()
+
+        for(var i = 0; i < ball.length; i++){
+          oGC.beginPath()
+          oGC.arc (ball[i].x, ball[i].y, 20, 0*Math.PI/180, 360*Math.PI/180)
+          oGC.fill()  
+        }
+
+        oGC.save()
+        oGC.translate(300,200)
+        oGC.rotate(iRotate)
+        oGC.translate(-40,-40)
+        oGC.drawImage(yImg, -0, -0, 80, 80);
+        oGC.restore()
+
+        for(var i = 0; i < bullet.length; i++){
+          oGC.save();
+          oGC.beginPath();
+          oGC.fillStyle = 'red'
+          oGC.arc (bullet[i].x, bullet[i].y, 20, 0*Math.PI/180, 360*Math.PI/180)
+          oGC.closePath();
+          oGC.fill()  
+          oGC.restore();
+        }
+      }, 1000/60)
+
+      // 更新球的坐标
+      var pos = setInterval(function(){
+        for(var i = 0; i< ball.length; i++){
+          ball[i].num++;
+
+          if(ball[i].num == 270){
+            ball[i].r = 150;
+            ball[i].startX = 250;
+            ball[i].startY = 50;
+          }
+          if(ball[i].num >= 450){
+            clearInterval(pos);
+          }
+          ball[i].x = Math.sin(ball[i].num * Math.PI/180) * ball[i].r + ball[i].startX;
+          ball[i].y = ball[i].r - Math.cos(ball[i].num * Math.PI/180) * ball[i].r + ball[i].startY;
+        }
+
+        for(var i = 0; i<bullet.length;i++){
+          bullet[i].x = bullet[i].x + bullet[i].sX;
+          bullet[i].y = bullet[i].y + bullet[i].sY;
+        }
+
+        for(var i = 0; i < bullet.length; i++){
+          for(var j = 0; j < ball.length; j++){
+            if( pz(ball[j].x, ball[j].y, bullet[i].x, bullet[i].y) ){
+              ball.splice(j,1);
+              bullet.splice(i,1);
+              break;
+            }
+          }
+        }
+
+      }, 30)
+
+      // 生成小球
+      var ball = [];
+      setInterval(function(){
+        ball.push({
+          x:300,
+          y:0,
+          r:200,
+          num:0,
+          startX:300,
+          startY:0
+        })
+      }, 500)
+
+      var iRotate = 0;
+      
+      // 旋转青蛙
+      oC.onmousemove = function(ev){
+        var a,b,c;
+        var ev = ev || window.event;
+        a = ev.clientX - oC.offsetLeft - 300;
+        b = ev.clientY - oC.offsetTop - 200;
+        c = Math.sqrt(a*a+b*b);
+
+        if(a>0 && b>0){
+          iRotate = Math.asin(b/c) + 90*Math.PI/180;
+        }else if(a>0){
+          iRotate = Math.asin(a/c);
+        }
+
+        if(a<0 && b>0){
+          iRotate = -(Math.asin(b/c) + 90*Math.PI/180);
+        }else if(a<0){
+          iRotate = Math.asin(a/c);
+        }
+      }
+
+      // 添加子弹
+      var bullet = []
+      oC.onmousedown = function(ev){
+        var a,b,c;
+
+        var ev = ev || window.event;
+        var x = ev.clientX - oC.offsetLeft;
+        var y = ev.clientY - oC.offsetTop;
+
+        a = x-300;
+        b = y-200;
+        c = Math.sqrt(a*a + b*b);
+
+        var speed = 10;
+
+        var sX = speed * a/c;
+        var sY = speed * b/c;
+
+        bullet.push({
+          x:300,
+          y:200,
+          sX:sX,
+          sY:sY
+        })
+
+      }
+
+      // 碰撞检测
+      function pz(x1,y1,x2,y2){
+        var a = x1-x2;
+        var b = y1-y2;
+        var c = Math.sqrt(a*a + b*b);
+
+        if(c<40){
+          return true
+        }else{
+          return false
+        }
+      }
+      
+    }
+
+  </script>
+
+</body>
+</html>
