@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .hi {
+    width: 80px;
+    height: 80px;  
+    background-image: url("app-download.png"); 
+    animation: play 1s steps(16) , play2 .8s steps(7) 1s infinite;  
+    }
+    @keyframes play {
+      from { background-position:  0px; }
+        to { background-position: -1280px; }
+    }
+
+    @keyframes play2 {
+      from { background-position: -720px; }
+        to { background-position: -1280px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hi"></div>
+  
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=z, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+    #ul1{
+      margin: 100px auto 0;
+      padding: 0
+    }
+    li{
+      float: left;
+      margin:0 0 10px 10px;
+      list-style: none;
+      border: 1px solid salmon
+    }
+    img {
+      width: 600px;
+      height: 500px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <ul id="ul1">
+    <li><img _src="./imgs/1.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/2.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/3.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/4.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/5.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/6.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/7.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/8.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/1.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/2.jpg" src="" alt=""></li>
+    <li><img _src="./imgs/3.jpg" src="" alt=""></li>
+  </ul>
+
+
+  <script>
+    var oUl = document.getElementById("ul1")
+    var aImg = oUl.getElementsByTagName('img')
+
+    function showImage(){
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+      for(var i = 0; i<aImg.length; i++){
+        if( getTop(aImg[i]) < scrollTop + document.documentElement.clientHeight && !aImg[i].isLoad){
+          aImg[i].src = aImg[i].getAttribute('_src')
+          aImg[i].isLoad = true;
+        }
+      }
+    }
+
+    showImage()
+    window.onscroll = showImage
+
+    // 获取obj距离页面顶部的距离
+    function getTop(obj){
+      if(obj.offsetParent){
+        return getTop(obj.offsetParent) + obj.offsetTop
+      }
+      return obj.offsetTop
+    }
+  </script>
+</body>
+</html>
