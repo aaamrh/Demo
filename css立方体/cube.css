@@ -1,0 +1,102 @@
+.m-cube{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: -150px;
+  -webkit-transition: transform .6s;
+  transition: transform .6s;
+}
+.m-cube .cube_wrapper{
+  position: relative;
+  animation: rotate 15s infinite;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  top: 100px;
+}
+.m-cube .cube_wrapper .surface{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background: #666;
+  opacity: 0.6;
+  transition: 2s;
+  font-size: 26px;
+  text-align: center;
+  line-height: 200px;
+  color: #fff;
+  font-family: 'font';
+  border: 1px solid #fff;
+}
+.m-cube .cube_wrapper .front{
+  transform: translateZ(100px);
+}
+.m-cube .cube_wrapper .back{
+  transform: translateZ(-100px);
+}
+.m-cube .cube_wrapper .left{
+  transform: translateX(-100px) rotateY(-90deg);
+}
+.m-cube .cube_wrapper .right{transform: translateX(100px) rotateY(90deg);}
+.m-cube .cube_wrapper .top{transform: translateY(-100px) rotateX(90deg) ;}
+.m-cube .cube_wrapper .bottom{transform:translateY(100px) rotateX(-90deg) ;}
+
+.cube_wrapper:hover .front{
+  transform: rotateY(0) translateZ(150px);
+}
+.cube_wrapper:hover .back{
+  transform: rotateY(0) translateZ(-150px);
+}
+.cube_wrapper:hover .left{
+  transform: translateX(-150px) rotateY(-90deg);
+}
+.cube_wrapper:hover .right{
+  transform: translateX(150px) rotateY(90deg);
+}
+.cube_wrapper:hover .top{
+  transform: translateY(-150px) rotateX(90deg);
+}
+.cube_wrapper:hover .bottom{
+  transform: translateY(150px) rotateX(-90deg);
+}
+
+@-webkit-keyframes rotate {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+.m-cube .cube_wrapper .surface-in{
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  background: rgba(0,0,0,.8);
+  font-family: 'font';
+  color: #fff;
+  text-align: center;
+  line-height: 120px;
+  margin-top: 40px;
+  margin-left: 40px;
+}
+.m-cube .cube_wrapper .front-in{
+  transform: translateZ(60px);
+}
+.m-cube .cube_wrapper .back-in{
+  transform: translateZ(-60px);
+}
+.m-cube .cube_wrapper .left-in{
+  transform: translateX(-60px) rotateY(-90deg);
+}
+.m-cube .cube_wrapper .right-in{
+  transform: translateX(60px) rotateY(90deg);
+}
+.m-cube .cube_wrapper .top-in{
+  transform: translateY(-60px) rotateX(90deg);
+}
+.m-cube .cube_wrapper .bottom-in{
+  transform: translateY(60px) rotateX(-90deg);
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="./css/popup.css">
+</head>
+<body>
+	<button id='j-btn' class="u-trigger bubble">show PopUp</button>
+	<!-- <div class="m-popup">
+		<div class="pop_head">标题</div>
+		<div class="pop_content"><p>弹窗内容</p></div>
+		<div class="pop_foot">
+			<a class='confirm' href='#'>确认</a>
+			<a class='cancel' href='#'>取消</a>
+		</div>
+	</div> -->
+	</div>
+
+<script type="text/javascript" src="./js/popup.js"></script>
+	<script type="text/javascript">
+		document.getElementById('j-btn').addEventListener('click', function(){
+			var popup = new Popup({
+				content:'hello',
+				container: document.body,
+			});
+			popup.show();
+		})
+	</script>
+</body>
+</html>
