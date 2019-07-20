@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title> 3d视差 </title>
+  <style>
+    html, body{
+      height: 100%;
+      overflow: hidden;
+    }
+    #container{
+      perspective: 1px;            /* note */
+      overflow: auto;              /* note */
+      padding: 0; 
+      height: 100%; 
+    }
+
+    .box{
+      height: 1500px;
+      transform-style: preserve-3d;   /* ### */
+    }
+
+    img{
+      position: absolute;
+      left: 50%;
+      transform: translate3D(-50%, 200px, -1px) scale(2);  /* 注意-1和 scale */
+    }
+
+    .a,.b,.c{
+      position: absolute;
+      display: block;
+      height: 50px;
+      width: 50px;
+    }
+    .a{
+      background: url('./1.png');
+      top: 300px;
+      left: 38%;
+    }
+    .b{
+      background: url('./2.png');
+      left: 35%;
+      top: 400px;  
+    }
+    .c{
+      background: url('./3.png');
+      left: 60%;
+      top: 500px;
+    }
+
+  </style>
+
+</head>
+<body>
+  <div id="container">
+    <div class="box">
+      <img src="./killer.jpg" alt="">
+      <i class="a"></i>
+      <i class="b"></i>
+      <i class="c"></i>
+    </div>
+  </div>
+</body>
+</html>
